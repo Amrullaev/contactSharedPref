@@ -12,11 +12,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.contactAdd.setOnClickListener {
-            startActivity(Intent(this, AddActivity::class.java))
+            startActivity(Intent(this, AddContactActivity::class.java))
         }
 
         binding.contactList.setOnClickListener {
-            startActivity(Intent(this, AllContactsActivity::class.java))
+            startActivity(Intent(this, AllContactsJavaActivity::class.java))
         }
     }
 }

@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.TextView
-import com.example.sharedprefnew.Contact
-import com.example.sharedprefnew.R
+import com.example.sharedprefnew.models.Contact
+import com.example.sharedprefnew.databinding.ItemContactsBinding
 
-class ContactAdapter(var mContext: Context, contactList: ArrayList<Contact>) :
+class ContactAdapter(var mContext: Context, contactList: List<Contact>) :
     BaseAdapter() {
-    var contactList: ArrayList<Contact>
+    var contactList: List<Contact>
 
     init {
         this.contactList = contactList
@@ -32,13 +31,20 @@ class ContactAdapter(var mContext: Context, contactList: ArrayList<Contact>) :
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view: View =
-            LayoutInflater.from(mContext).inflate(R.layout.item_contacts, parent, false)
-        val name = view.findViewById<TextView>(R.id.contact_name)
-        val number = view.findViewById<TextView>(R.id.contact_number)
+        var binding: ItemContactsBinding
+
+        binding = if (convertView == null) {
+            ItemContactsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        } else {
+            ItemContactsBinding.bind(convertView)
+        }
+//        val view: View =
+//            LayoutInflater.from(mContext).inflate(R.layout.item_contacts, parent, false)
+//        val name = view.findViewById<TextView>(R.id.contact_name)
+//        val number = view.findViewById<TextView>(R.id.contact_number)
         val contact: Contact = getItem(position) as Contact
-        name.text = contact.name
-        number.text = contact.number
-        return view
+        binding.contactName.text = contact.name
+        binding.contactNumber.text = contact.number
+        return binding.root
     }
 }
